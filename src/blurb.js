@@ -57,4 +57,6 @@ define(function (require, exports, module) {
       .then(blurb => user.set('blurb', util.cleanTypedString(blurb)).get('blurb'));
   }
 
+  module.exports = getBlurb;
+
 });
