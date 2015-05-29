@@ -57,6 +57,8 @@ define('extplug/rollover-blurb/blurb',['require','exports','module','jquery','pl
       return user.set('blurb', util.cleanTypedString(blurb)).get('blurb');
     });
   }
+
+  module.exports = getBlurb;
 });
 
 
