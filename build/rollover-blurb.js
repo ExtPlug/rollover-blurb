@@ -1,18 +1,11 @@
 
 
-define('extplug/rollover-blurb/main',['require','exports','module','jquery','meld','extplug/Plugin','extplug/util/request','plug/views/users/userRolloverView','plug/actions/users/UserFindAction','plug/util/util'],function (require, exports, module) {
+define('extplug/rollover-blurb/blurb',['require','exports','module','jquery','plug/actions/users/UserFindAction','plug/util/util','extplug/util/request'],function (require, exports, module) {
 
   var $ = require('jquery');
-  var meld = require('meld');
-
-  var Plugin = require('extplug/Plugin');
-  var request = require('extplug/util/request');
-
-  var rolloverView = require('plug/views/users/userRolloverView');
   var UserFindAction = require('plug/actions/users/UserFindAction');
   var util = require('plug/util/util');
-
-  var emoji = $('<span />').addClass('emoji-glow').append($('<span />').addClass('emoji emoji-1f4dd'));
+  var request = require('extplug/util/request');
 
   /**
    * Finds the blurb for a user.
@@ -64,6 +57,21 @@ define('extplug/rollover-blurb/main',['require','exports','module','jquery','mel
       return user.set('blurb', util.cleanTypedString(blurb)).get('blurb');
     });
   }
+});
+
+
+define('extplug/rollover-blurb/main',['require','exports','module','jquery','meld','extplug/Plugin','plug/views/users/userRolloverView','./blurb'],function (require, exports, module) {
+
+  var $ = require('jquery');
+  var meld = require('meld');
+
+  var Plugin = require('extplug/Plugin');
+
+  var rolloverView = require('plug/views/users/userRolloverView');
+
+  var getBlurb = require('./blurb');
+
+  var emoji = $('<span />').addClass('emoji-glow').append($('<span />').addClass('emoji emoji-1f4dd'));
 
   var RolloverBlurb = Plugin.extend({
     name: 'Rollover Blurb',
@@ -73,21 +81,21 @@ define('extplug/rollover-blurb/main',['require','exports','module','jquery','mel
       this._super();
       this.Style({
         '.extplug-blurb': {
-          padding: '10px',
-          position: 'absolute',
-          top: '3px',
-          background: '#282c35',
-          width: '100%',
+          'padding': '10px',
+          'position': 'absolute',
+          'top': '3px',
+          'background': '#282c35',
+          'width': '100%',
           'box-sizing': 'border-box',
-          display: 'none'
+          'display': 'none'
         },
         '.expand .extplug-blurb': {
-          display: 'block'
+          'display': 'block'
         }
       });
 
       this.showAdvice = meld.after(rolloverView, 'showModal', this.addBlurb);
-      this.hideAdivce = meld.before(rolloverView, 'hide', this.removeBlurb);
+      this.hideAdvice = meld.before(rolloverView, 'hide', this.removeBlurb);
     },
 
     disable: function disable() {
