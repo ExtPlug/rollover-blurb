@@ -1,5 +1,5 @@
 { "name": "extplug-rollover-blurb"
-, "version": "0.0.2"
+, "version": "0.0.3"
 , "description": "ExtPlug plugin that shows the user \"Blurb\" / bio in rollover popups."
 , "devDependencies":
   { "gulp": "^3.8.11"
