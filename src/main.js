@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
 
   const $ = require('jquery');
-  const meld = require('meld');
+  const { before, after } = require('meld');
 
   const Plugin = require('extplug/Plugin');
 
@@ -16,29 +16,27 @@ define(function (require, exports, module) {
     name: 'Rollover Blurb',
     description: 'Show user "Blurb" / bio in rollover popups.',
 
-    enable() {
-      this._super();
-      this.Style({
-        '.extplug-blurb': {
-          'padding': '10px',
-          'position': 'absolute',
-          'top': '3px',
-          'background': '#282c35',
-          'width': '100%',
-          'box-sizing': 'border-box',
-          'display': 'none'
-        },
-        '.expand .extplug-blurb': {
-          'display': 'block'
-        }
-      });
+    style: {
+      '.extplug-blurb': {
+        'padding': '10px',
+        'position': 'absolute',
+        'top': '3px',
+        'background': '#282c35',
+        'width': '100%',
+        'box-sizing': 'border-box',
+        'display': 'none'
+      },
+      '.expand .extplug-blurb': {
+        'display': 'block'
+      }
+    },
 
-      this.showAdvice = meld.after(rolloverView, 'showModal', this.addBlurb);
-      this.hideAdvice = meld.before(rolloverView, 'hide', this.removeBlurb);
+    enable() {
+      this.showAdvice = after(rolloverView, 'showModal', this.addBlurb);
+      this.hideAdvice = before(rolloverView, 'hide', this.removeBlurb);
     },
 
     disable() {
-      this._super();
       this.showAdvice.remove();
       this.hideAdvice.remove();
     },
