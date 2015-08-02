@@ -46,8 +46,10 @@ define(function (require, exports, module) {
       this.$('.extplug-blurb-wrap').remove();
       let span = $('<span />').addClass('extplug-blurb');
       let div = $('<div />').addClass('info extplug-blurb-wrap').append(span);
+      let user = this.user;
       getBlurb(this.user).then(blurb => {
-        if (blurb) {
+        // ensure that the same rollover is still open
+        if (blurb && this.user === user) {
           // `this` == the RolloverView
           this.$('.actions').before(div);
           span.append(emoji, ` ${blurb}`);
