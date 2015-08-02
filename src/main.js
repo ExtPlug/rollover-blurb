@@ -51,8 +51,11 @@ define(function (require, exports, module) {
           // `this` == the RolloverView
           this.$('.actions').before(div);
           span.append(emoji, ` ${blurb}`);
-          div.height(span[0].offsetHeight + 6);
-          this.$el.css('top', (parseInt(this.$el.css('top'), 10) - div.height()) + 'px');
+          let height = span[0].offsetHeight + 6;
+          div.height(height);
+          if (this.$el.hasClass('upwards')) {
+            this.$el.css('top', (parseInt(this.$el.css('top'), 10) - height) + 'px');
+          }
         }
       });
     },
