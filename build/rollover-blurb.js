@@ -65,7 +65,11 @@ define('extplug/rollover-blurb/blurb',['require','exports','module','jquery','pl
 define('extplug/rollover-blurb/main',['require','exports','module','jquery','meld','extplug/Plugin','plug/views/users/userRolloverView','./blurb'],function (require, exports, module) {
 
   var $ = require('jquery');
-  var meld = require('meld');
+
+  var _require = require('meld');
+
+  var before = _require.before;
+  var after = _require.after;
 
   var Plugin = require('extplug/Plugin');
 
@@ -79,29 +83,27 @@ define('extplug/rollover-blurb/main',['require','exports','module','jquery','mel
     name: 'Rollover Blurb',
     description: 'Show user "Blurb" / bio in rollover popups.',
 
-    enable: function enable() {
-      this._super();
-      this.Style({
-        '.extplug-blurb': {
-          'padding': '10px',
-          'position': 'absolute',
-          'top': '3px',
-          'background': '#282c35',
-          'width': '100%',
-          'box-sizing': 'border-box',
-          'display': 'none'
-        },
-        '.expand .extplug-blurb': {
-          'display': 'block'
-        }
-      });
+    style: {
+      '.extplug-blurb': {
+        'padding': '10px',
+        'position': 'absolute',
+        'top': '3px',
+        'background': '#282c35',
+        'width': '100%',
+        'box-sizing': 'border-box',
+        'display': 'none'
+      },
+      '.expand .extplug-blurb': {
+        'display': 'block'
+      }
+    },
 
-      this.showAdvice = meld.after(rolloverView, 'showModal', this.addBlurb);
-      this.hideAdvice = meld.before(rolloverView, 'hide', this.removeBlurb);
+    enable: function enable() {
+      this.showAdvice = after(rolloverView, 'showModal', this.addBlurb);
+      this.hideAdvice = before(rolloverView, 'hide', this.removeBlurb);
     },
 
     disable: function disable() {
-      this._super();
       this.showAdvice.remove();
       this.hideAdvice.remove();
     },
@@ -113,13 +115,18 @@ define('extplug/rollover-blurb/main',['require','exports','module','jquery','mel
       this.$('.extplug-blurb-wrap').remove();
       var span = $('<span />').addClass('extplug-blurb');
       var div = $('<div />').addClass('info extplug-blurb-wrap').append(span);
+      var user = this.user;
       getBlurb(this.user).then(function (blurb) {
-        if (blurb) {
+        // ensure that the same rollover is still open
+        if (blurb && _this.user === user) {
           // `this` == the RolloverView
           _this.$('.actions').before(div);
           span.append(emoji, ' ' + blurb);
-          div.height(span[0].offsetHeight + 6);
-          _this.$el.css('top', parseInt(_this.$el.css('top'), 10) - div.height() + 'px');
+          var height = span[0].offsetHeight + 6;
+          div.height(height);
+          if (_this.$el.hasClass('upwards')) {
+            _this.$el.css('top', parseInt(_this.$el.css('top'), 10) - height + 'px');
+          }
         }
       });
     },
