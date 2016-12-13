@@ -3,7 +3,7 @@ Rollover Blurb
 
 ExtPlug plugin that shows user Blurbs (bios / "about me"s) in rollover popups.
 
-![Screenshot](http://i.imgur.com/4U1SY0G.png)
+![Screenshot](./screenshot.png)
 
 ## Installation
 
