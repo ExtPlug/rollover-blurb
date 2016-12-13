@@ -1,0 +1,13 @@
+.extplug-blurb {
+  padding: 10px;
+  position: absolute;
+  top: 3px;
+  background: #282c35;
+  width: 100%;
+  box-sizing: border-box;
+  display: none;
+
+  @nest .expand & {
+    display: block;
+  }
+}

@@ -4,6 +4,7 @@ import Plugin from 'extplug/Plugin';
 import rolloverView from 'plug/views/users/userRolloverView';
 
 import getBlurb from './blurb';
+import style from './style.css';
 
 const emoji = $('<span />').addClass('emoji-glow')
   .append($('<span />').addClass('emoji emoji-1f4dd'));
@@ -14,20 +15,7 @@ const RolloverBlurb = Plugin.extend({
   name: 'Rollover Blurb',
   description: 'Show user "Blurb" / bio in rollover popups.',
 
-  style: {
-    '.extplug-blurb': {
-      'padding': '10px',
-      'position': 'absolute',
-      'top': '3px',
-      'background': '#282c35',
-      'width': '100%',
-      'box-sizing': 'border-box',
-      'display': 'none'
-    },
-    '.expand .extplug-blurb': {
-      'display': 'block'
-    }
-  },
+  style,
 
   enable() {
     this.showAdvice = after(rolloverView, 'showModal', this.addBlurb);
