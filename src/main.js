@@ -46,8 +46,14 @@ const RolloverBlurb = Plugin.extend({
         span.append(emoji, ` ${blurb}`);
         let height = span[0].offsetHeight + 6;
         div.height(height);
-        if (this.$el.hasClass('upwards')) {
-          this.$el.css('top', (parseInt(this.$el.css('top'), 10) - height) + 'px');
+        this.$el.css('top', (parseInt(this.$el.css('top'), 10) - height) + 'px');
+
+        // Move the arrow down if this rollover opened downwards, so it still
+        // aligns with whatever it was pointing to.
+        if (this.$el.hasClass('chat') && !this.$el.hasClass('upwards')) {
+          this.$el.find('.arrow-down').css('margin-top', `${height}px`);
+        } else {
+          this.$el.find('.arrow-down').css('margin-top', 0);
         }
       }
     });
