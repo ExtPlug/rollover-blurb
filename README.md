@@ -1,6 +1,8 @@
 Rollover Blurb
 ==============
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/extplug/rollover-blurb.svg)](https://greenkeeper.io/)
+
 ExtPlug plugin that shows user Blurbs (bios / "about me"s) in rollover popups.
 
 ![Screenshot](./screenshot.png)
