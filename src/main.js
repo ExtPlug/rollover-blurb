@@ -1,13 +1,11 @@
 import $ from 'jquery';
 import { before, after } from 'meld';
+import * as emoji from 'plug/util/emoji';
 import Plugin from 'extplug/Plugin';
 import rolloverView from 'plug/views/users/userRolloverView';
 
 import getBlurb from './blurb';
 import style from './style.css';
-
-const emoji = $('<span />').addClass('emoji-glow')
-  .append($('<span />').addClass('emoji emoji-1f4dd'));
 
 const opening = Symbol('currently loading blurb');
 
@@ -43,7 +41,10 @@ const RolloverBlurb = Plugin.extend({
         this[opening] = null;
         // `this` == the RolloverView
         this.$('.actions').before(div);
-        span.append(emoji, ` ${blurb}`);
+        span.append(
+          emoji.replace_colons(':pencil:'),
+          ` ${blurb}`
+        );
         const height = span[0].offsetHeight + 6;
         div.height(height);
         this.$el.css('top', (parseInt(this.$el.css('top'), 10) - height) + 'px');
