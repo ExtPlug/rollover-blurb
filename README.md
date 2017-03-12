@@ -11,19 +11,26 @@ You can install this plugin by going to your ExtPlug settings menu, pressing "In
 and entering this Plugin URL:
 
 ```
-https://extplug.github.io/rollover-blurb/build/rollover-blurb.js;extplug/rollover-blurb/main
+https://unpkg.com/extplug-rollover-blurb
 ```
 
 ## Building
 
 **Note: this section is intended for developers only.**
 
-This plugin uses NPM for dependency management and `gulp` for building.
+First, install dependencies:
 
-```
+```bash
 npm install
-gulp build
 ```
+
+Then, use:
+
+```bash
+npm run build
+```
+
+The plugin will be built using the [ExtPlug CLI](https://github.com/extplug/extplug-cli).
 
 The built plugin will be stored at `build/rollover-blurb.js`.
 
