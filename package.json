@@ -2,6 +2,13 @@
   "name": "extplug-rollover-blurb",
   "version": "1.1.0",
   "description": "ExtPlug plugin that shows the user \"Blurb\" / bio in rollover popups.",
+  "license": "MIT",
+  "author": "Renée Kooi <renee@kooi.me>",
+  "repository": "extplug/rollover-blurb",
+  "main": "build/rollover-blurb.js",
+  "keywords": [
+    "extplug-plugin"
+  ],
   "devDependencies": {
     "extplug-cli": "^1.1.2"
   },
