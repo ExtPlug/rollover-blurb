@@ -34,8 +34,8 @@ const RolloverBlurb = Plugin.extend({
       return;
     }
     this.$('.extplug-blurb-wrap').remove();
-    let span = $('<span />').addClass('extplug-blurb');
-    let div = $('<div />').addClass('info extplug-blurb-wrap').append(span);
+    const span = $('<span />').addClass('extplug-blurb');
+    const div = $('<div />').addClass('info extplug-blurb-wrap').append(span);
     this[opening] = this.user;
     getBlurb(this.user).then(blurb => {
       // ensure that the same rollover is still open
@@ -44,7 +44,7 @@ const RolloverBlurb = Plugin.extend({
         // `this` == the RolloverView
         this.$('.actions').before(div);
         span.append(emoji, ` ${blurb}`);
-        let height = span[0].offsetHeight + 6;
+        const height = span[0].offsetHeight + 6;
         div.height(height);
         this.$el.css('top', (parseInt(this.$el.css('top'), 10) - height) + 'px');
 
